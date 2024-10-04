@@ -1,5 +1,11 @@
-h1 {
-    font-size:200px;
+div {
+    font-size:100px;
     font-weight: bolder;
     text-align:center;
+}
+#btns {
+    text-align:center;
+}
+body {
+    background-color:aqua;
 }
