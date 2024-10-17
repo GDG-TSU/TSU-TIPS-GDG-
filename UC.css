@@ -1,4 +1,27 @@
 form {
     display:flex;
-    align-content:center;
+    opacity:0.9;
+    flex-wrap:wrap;
+    
+}
+form > #fIpt:hover {
+    opacity:1;
+    border: black solid 2px;
+
+}
+form > #fIpt {
+border-radius:5px;
+flex:auto;
+margin: 1rem;
+padding: 1rem;
+}
+#submit {
+    border-radius:5px;
+    width: 5rem;
+    height: 1.5rem;
+    margin: 5px;
+    background-color:aquamarine;
+    font-family:'Courier New', Courier, monospace;
+    font-size-adjust: inherit;
+    font-stretch: inherit;
 }

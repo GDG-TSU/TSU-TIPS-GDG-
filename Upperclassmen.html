@@ -3,7 +3,7 @@
     <head>
         <meta charset = 'utf-8'>
         <meta name= 'viewport' content = 'width=device-width, initial-scale=1.0'>
-        <link rel = '' href = 'UC.css'>
+        <link rel = 'stylesheet' href = 'UC.css'>
     </head>
     <body>
         <figure>
@@ -11,14 +11,21 @@
             <figcaption>Ask away!</figcaption>
         </figure>
         <form action = "submit.php" method = "POST">
+            <div id = "fIpt">
             <label for = "name">Name:</label>
             <input type = "text" id = "name" name = "name" required>
+        </div>
+            <div id = "fIpt">
             <label for = "TNum">TNumber</label>
             <input type = "text" id = "TNum" name = "TSUId" required>
+        </div>
+            <div id = "fIpt">
             <label for = "tip">Help out! Tell us what you wish you knew when you first came to TSU</label>
             <textarea id = "tip" name = "message" rows = '4' cols = '50'></textarea>
-            <button type = "submit" id ='submit'></button>
+        </div>
         </form>
+        <button type = "submit" id ='submit'>Submit</button>
+
     
     </body>
 </html>
