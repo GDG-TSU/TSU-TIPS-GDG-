@@ -1,11 +1,16 @@
-div {
-    font-size:100px;
-    font-weight: bolder;
-    text-align:center;
-}
-#btns {
-    text-align:center;
-}
-body {
-    background-color:aqua;
-}
+ .{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+ }
+
+ .navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+
+ .left-side h1 {
+    font-size: 30px;
+    color: blue;
+ }
