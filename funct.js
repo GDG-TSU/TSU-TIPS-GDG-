@@ -4,3 +4,4 @@ const outLink1 = function() {
 const outLink2 = function() {
     window.location.replace("https://www.google.com");
 } 
+
