@@ -28,4 +28,3 @@ catch (PDOException $e) {
 
 #close the connection
 $conn = null;
-?>
