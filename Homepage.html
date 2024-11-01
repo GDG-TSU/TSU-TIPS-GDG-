@@ -6,17 +6,18 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div>
-        <img src="https://www.tnstate.edu/publications/images/Logo_BlueOnWhite_2170w.jpg" alt="logo">
-    </div>
-    <nav>
-        <ul>
-            <li>
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </li>
-        </ul>
+    <nav class="navbar">
+        <div class="navdiv">
+            <div class="logo"><a href="#">
+                <img src="https://www.tnstate.edu/publications/images/Logo_BlueOnWhite_2170w.jpg" alt="logo">
+            </div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a> </li>
+                <li><a href="#">Support</a></li>
+                <button id = "navBtn"><a href="#">aaa</a></button>
+            </ul>
+        </div>
     </nav>
     <section class="hero-section" id="Phasee-1">
         <div class="text-1" id="Slogan">
@@ -24,7 +25,7 @@
             <h2>You Can Start</h2>
         </div>
         <div class="btn-1" id="Start-btn">
-           <button type="button">Start Searching</button> 
+           <button type="button" id = "searchBtn">Start Searching</button> 
         </div>
     </section>
 </section>
