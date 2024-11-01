@@ -56,3 +56,38 @@ section {
     transition: 0.5s;
     font-family: "jetbrains mono";
 }
+/* 
+#btns button {
+    width:100px;
+    height:50px;
+    background-color: blue;
+    border-radius:5px;
+    margin:5px;
+    cursor:pointer;
+} */
+
+#btns {
+    text-align:center;
+}
+
+#btns button{
+    background-color: #00539F;
+    color: white;
+    border-radius: 5px;
+    border-style: inset;
+    border-color: red;
+    border-width: 4px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    font-family: "jetbrains mono";
+  
+}
+
+#btns button:hover {
+    background-color: #00205B; 
+    border-color: #003DA5;
+    transition: 0.5s;
+    animation: pulse 2s;
+}
