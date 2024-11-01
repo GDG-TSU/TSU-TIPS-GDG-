@@ -13,6 +13,7 @@
 
 input {
     transform: translate(50%,50%);
+    font-weight:50;
 }
 
 .navbar
@@ -47,7 +48,15 @@ nav a:hover {
 section {
     display:block;
 }
-.D-Block{
+.D-Block::before {
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    /* border-radius: 30px; */
+    border: 100px solid #00539f;
+    transition: 0.5s;
+}
+.D-Block {
     display:block;
     background-color: #00539f;
     color: white;
@@ -60,7 +69,7 @@ section {
     margin-bottom: 30px;
     /* border-radius: 30px; */
     border: 100px solid #00539f;
-    transition: 0.5s;
+    transition: 3s;
     font-family: "jetbrains mono";
 
 }
