@@ -8,6 +8,11 @@
     text-decoration: none;
 
 }
+
+input {
+    transform: translate(50%,50%);
+}
+
 .navbar
 {
     background: white; font-family: "Jetbrains Mono", sans-serif; padding-right: 15px; padding-left: 15px;
