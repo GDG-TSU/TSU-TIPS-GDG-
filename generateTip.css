@@ -30,7 +30,7 @@ body{
 {
     border-radius: 12px;
     padding:10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.2);
     width:fit-content;
     margin-bottom: 50px;
     background-color: rgba(255, 255, 255, 0.96);
@@ -49,14 +49,14 @@ body{
     float: right;
     margin: 20px;
     margin-right:30px;
-    font-size: 25px;
+    font-size: 20px;
     color:rgb(5, 83, 161);
     font-weight: 700;
 }
 #genHead ul li{
 
     text-decoration: underline;
-    text-decoration-color: red;
+    text-decoration-color: lightblue;
     text-underline-offset: 7px;
 }
 
@@ -86,10 +86,16 @@ body{
     left:255px;
     border-radius: 12px;
     font-size: large;
-   
+
     border: none; /* Hide border */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none;
+}
+
+.Category{
+    text-decoration: underline;
+    text-decoration-color: lightblue;
+    text-underline-offset: 7px;
 }
 
 
