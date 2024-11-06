@@ -4,24 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "generateTip.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
     <title>Generate Tip</title>
 </head>
 
  <header id = "genHead">
     <a href="Homepage.html">
-    <img  id = "textLogo" src = "TSU_textLogo.png" width = 200>
+    <img  class = "animate__animated animate__fadeInLeft" id = "textLogo" src = "TSU_textLogo.png" width = 200>
     </a>
 
-    <h1>Freshman Tip Page</h1>
-
     <ul>
-        <li>
+        <li class = "animate__animated animate__fadeInLeft">
             <a>Submit Tip</a>
         </li>
-        <li>
+        <li class = "animate__animated animate__fadeInLeft">
             <a> Categories</a> 
         </li>
-        <li>
+        <li class = "animate__animated animate__fadeInLeft">
             <a>About Us</a>
         </li>
     </ul>
@@ -29,25 +31,13 @@
 <body class = "test">
     <div id = "contain">
         <ul id = "listOfTips">
-            <li>
-                <span class = "Category">Computer Science - </span> <br> <br>
-                "Currently testing the way the text shows on the screen wondering if it'll wrap
-                around the image, if it becomes dnc... more testing more words etc what else will
-                happen to the other person who comes and all the other stuff"
-           </li>
-           <li>
-            <span class = "Category">Computer Science - </span> <br> <br>
-            "Dont Trust Yao!!!"
-           </li>
-           <li>
-            <span class = "Category">Financial Aid - </span> <br> <br>
-            "Make sure to check the terms of your scholarship."
+
         </ul>
 
     </div>
 
     <div class = "genButtonContainer">
-        <button class = "genButton">
+        <button class = "animate__animated animate__fadeInLeft" id = "genButton" onclick="newTip();">
             <p1 class ="genButtonText">Generate Tip</p1>
         </button>
     </div>
@@ -56,4 +46,16 @@
     </div>
 
 </body>
+
+<script>
+    function newTip(){
+        theBox = document.getElementById("listOfTips");
+        theBox.innerHTML += "<li class = 'animate__animated animate__fadeInUp'><span class = 'Category'>Financial Aid - </span> <br> <br>This is the end of the freshman tip front end"; 
+        theList = theBox.getElementsByTagName("li");
+        theList[theList.length-1].addEventListener('animationend', ()=>{
+            theList[theList.length-1].classList.remove('animate__animated', 'animate__fadeInUp');
+        });
+        
+    }
+</script>
 </html> 

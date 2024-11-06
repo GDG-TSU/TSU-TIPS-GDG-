@@ -71,16 +71,19 @@ body{
     bottom: 20px;
 }
 
-.genButton {
+#genButton {
     background-color: #00539f;
     width: 200px;
     height: 50px;
     cursor: pointer;
     border-radius: 15px;
     border-style: none; 
+    color:white;
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.2);
+    
 }
 
-.genButtonText {
+#genButtonText {
     color: white;
 }
 
@@ -120,7 +123,13 @@ body{
 
     border: none; /* Hide border */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none;
+    
+    scrollbar-width: thin;
+    transition: scrollbar-color 0.5s ease;
+    scrollbar-color: #71A1D0 transparent;
+}
+#contain:hover{
+    scrollbar-color: #888 transparent;
 }
 
 .Category{
