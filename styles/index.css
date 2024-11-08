@@ -1,0 +1,35 @@
+ html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+ }
+
+ .navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+
+ .left-side h1 {
+    font-size: 30px;
+    color: blue;
+ }
+
+
+ body {
+   background-color:#51A5E8;
+   
+}
+#btns {
+   margin:auto;
+   text-align:center;
+   color:black;
+}
+#btns > a {
+   text-decoration: none;
+}
+
+div {
+   font-weight: bolder;
+   text-align:center;
+}

@@ -1,0 +1,141 @@
+body{
+    background: linear-gradient(to right, rgba(0, 56, 113),rgb(133, 179, 224));
+}
+
+#genHead{
+    background-color: rgba(255, 255, 255, 0.975);
+    height:50px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+}
+
+#genHead h1 {
+    margin-top: 10px;
+}
+.cornerImage
+{
+    background: radial-gradient(circle,lightblue,blue);
+    position: fixed;
+    bottom:0;
+    right:0;
+    margin:-70px;
+    opacity:0.1;
+    border-radius: 50%;
+    width:300px;
+    height:300px;
+}
+#listOfTips{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+}
+
+#listOfTips li
+{
+    border-radius: 12px;
+    padding:10px;
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.2);
+    width:fit-content;
+    margin-bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.96);
+}
+
+#textLogo
+{
+    margin:0;
+    padding:0;
+}
+
+#genHead ul{
+    display:flex;
+    gap:100px;
+    list-style-type: none;
+    float: right;
+    margin: 20px;
+    margin-right:30px;
+    font-size: 20px;
+    color:rgb(5, 83, 161);
+    font-weight: 700;
+}
+
+#genHead a{
+    text-decoration: none;
+}
+
+.genButtonContainer {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+}
+
+#genButton {
+    background-color: #00539f;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 15px;
+    border-style: none; 
+    color:white;
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.2);
+    
+}
+
+#genButtonText {
+    color: white;
+}
+
+#genHead ul li{
+
+    text-decoration: underline;
+    text-decoration-color: lightblue;
+    text-underline-offset: 7px;
+}
+
+
+#genText{
+    position: relative;
+    left:235px;
+    width:240px;
+    height:65px;
+    border-radius: 12px;
+    background-color: rgb(58, 58, 207);
+    color:white;
+    font-size: large;
+    padding: 10px 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(10deg, rgb(107, 107, 181), rgb(58, 58, 207));
+}
+
+#contain{
+    position: relative;
+    top:30px;
+    width:1000px;
+    height:570px;
+    overflow-y: scroll;
+    border:1px solid #ccc;
+    padding:10px;
+    left:255px;
+    border-radius: 12px;
+    font-size: large;
+
+    border: none; /* Hide border */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    
+    scrollbar-width: thin;
+    transition: scrollbar-color 0.5s ease;
+    scrollbar-color: #71A1D0 transparent;
+}
+#contain:hover{
+    scrollbar-color: #888 transparent;
+}
+
+.Category{
+    text-decoration: underline;
+    text-decoration-color: lightblue;
+    text-underline-offset: 7px;
+}
+
+
