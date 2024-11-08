@@ -1,5 +1,6 @@
 body{
     background: linear-gradient(to right, rgba(0, 56, 113),rgb(133, 179, 224));
+
 }
 
 #genHead{
@@ -42,6 +43,7 @@ body{
     background-color: rgba(255, 255, 255, 0.96);
 }
 
+
 #textLogo
 {
     margin:0;
@@ -73,7 +75,7 @@ body{
 
 #genButton {
     background-color: #00539f;
-    width: 200px;
+    width: 250px;
     height: 50px;
     cursor: pointer;
     border-radius: 15px;
@@ -92,6 +94,9 @@ body{
     text-decoration: underline;
     text-decoration-color: lightblue;
     text-underline-offset: 7px;
+}
+#genHead ul li:hover{
+    
 }
 
 
@@ -112,7 +117,7 @@ body{
 #contain{
     position: relative;
     top:30px;
-    width:1000px;
+    width:68%;
     height:570px;
     overflow-y: scroll;
     border:1px solid #ccc;
