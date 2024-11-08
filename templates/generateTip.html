@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "../styles/generateTip.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <title>Generate Tip</title>
+</head>
+
+ <header id = "genHead">
+    <a href="Homepage.html">
+    <img  class = "animate__animated animate__fadeInLeft" id = "textLogo" src = "TSU_textLogo.png" width = 200>
+    </a>
+
+    <ul>
+        <li class = "animate__animated animate__fadeInLeft">
+            <a>Submit Tip</a>
+        </li>
+        <li class = "animate__animated animate__fadeInLeft">
+            <a> Categories</a> 
+        </li>
+        <li class = "animate__animated animate__fadeInLeft">
+            <a>About Us</a>
+        </li>
+    </ul>
+</header>
+<body class = "test">
+    <div id = "contain">
+        <ul id = "listOfTips">
+
+        </ul>
+
+    </div>
+
+    <div class = "genButtonContainer">
+        <button class = "animate__animated animate__fadeInLeft" id = "genButton" onclick="newTip();">
+            <p1 class ="genButtonText">Generate Tip</p1>
+        </button>
+    </div>
+
+    <div class = "cornerImage">
+    </div>
+
+</body>
+
+<script>
+    function newTip(){
+        theBox = document.getElementById("listOfTips");
+        theBox.innerHTML += "<li class = 'animate__animated animate__fadeInUp'><span class = 'Category'>Financial Aid - </span> <br> <br>This is the end of the freshman tip front end"; 
+        theList = theBox.getElementsByTagName("li");
+        theList[theList.length-1].addEventListener('animationend', ()=>{
+            theList[theList.length-1].classList.remove('animate__animated', 'animate__fadeInUp');
+        });
+        
+    }
+</script>
+</html> 

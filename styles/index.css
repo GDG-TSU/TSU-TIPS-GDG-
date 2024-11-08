@@ -14,3 +14,22 @@
     font-size: 30px;
     color: blue;
  }
+
+
+ body {
+   background-color:#51A5E8;
+   
+}
+#btns {
+   margin:auto;
+   text-align:center;
+   color:black;
+}
+#btns > a {
+   text-decoration: none;
+}
+
+div {
+   font-weight: bolder;
+   text-align:center;
+}
