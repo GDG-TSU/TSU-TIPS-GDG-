@@ -1,0 +1,70 @@
+
+h2 {
+    text-align:center;
+}
+
+form {
+    display:flex;
+    opacity:0.9;
+    flex-wrap:wrap;
+    margin: 1rem;
+    padding: 1rem;
+    gap:50px;
+    
+}
+.entryPoint {
+    width:75%;
+    height:100%;
+    min-height:1000px;
+    margin-left:auto;
+    margin-right:auto;
+    background: linear-gradient(to right, transparent,#3CF0A8 1%, #3CF0A8 99%, transparent);
+
+}
+.entryPoint::before {
+    z-index:-1;
+
+
+}
+.entryPoint > figure {
+    max-width:inherit;
+    max-height:inherit; 
+}
+body {
+    background-color:#547065;
+    margin:0;
+}
+#fIpt > input:hover, #fIpt > textarea:hover {
+    opacity:1;
+    border: black solid 2px;
+
+}
+form > #fIpt {
+border-radius:5px;
+flex:1;
+margin-top:auto;
+margin-bottom: auto;
+
+}
+#submit {
+    border-radius:5px;
+    width: 5rem;
+    height: 1.5rem;
+    margin: 5px;
+    background-color:aquamarine;
+    font-family:'Courier New', Courier, monospace;
+    font-size-adjust: inherit;
+    font-stretch: inherit;
+    opacity:0.9;
+}
+#submit:hover {
+    width:5.5rem;
+    margin:6px;
+    opacity:1;
+
+}
+
+form {
+    display:flex;
+    align-content:center;
+}
