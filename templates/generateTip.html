@@ -13,7 +13,7 @@
 
  <header id = "genHead">
     <a href="Homepage.html">
-    <img  class = "animate__animated animate__fadeInLeft" id = "textLogo" src = "TSU_textLogo.png" width = 200>
+    <img  class = "animate__animated animate__fadeInLeft" id = "textLogo" src = "../assets/TSU_textLogo.png" width = 200>
     </a>
 
     <ul>
@@ -30,9 +30,9 @@
 </header>
 <body class = "test">
     <div id = "contain">
-        <ul id = "listOfTips">
+        <div id = "listOfTips">
 
-        </ul>
+        </div>
 
     </div>
 
@@ -46,16 +46,56 @@
     </div>
 
 </body>
-
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 <script>
-    function newTip(){
-        theBox = document.getElementById("listOfTips");
-        theBox.innerHTML += "<li class = 'animate__animated animate__fadeInUp'><span class = 'Category'>Financial Aid - </span> <br> <br>This is the end of the freshman tip front end"; 
-        theList = theBox.getElementsByTagName("li");
-        theList[theList.length-1].addEventListener('animationend', ()=>{
-            theList[theList.length-1].classList.remove('animate__animated', 'animate__fadeInUp');
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
+    // Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyBNVtJXtXLSX-Q0Rf5C_ZGLp0rbL5GD6Fg",
+        authDomain: "tsu-tips.firebaseapp.com",
+        projectId: "tsu-tips",
+        storageBucket: "tsu-tips.firebasestorage.app",
+        messagingSenderId: "888234284095",
+        appId: "1:888234284095:web:5dfdb0dbecc6769b7d148a",
+        measurementId: "G-VS03GGC4H5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Reference to the collection
+    const myCollection = collection(db, "tips");
+
+    async function getData() {
+        const documents = query(myCollection);
+        const docs = await getDocs(documents);
+        const listOfTips = [];
+
+        docs.forEach((doc) => {
+            listOfTips.push(doc.data());
         });
-        
+
+
+        if(listOfTips.length > 0){
+            const randomIndex = Math.floor(Math.random() * listOfTips.length);
+            const randomTip = listOfTips[randomIndex];
+
+            const h2 = document.createElement("h2");
+            h2.innerHTML = randomTip.category;
+
+
+            
+        }
+        else{
+            console.log("No documents available in the database");
+        }
     }
+
+
+
 </script>
 </html> 
