@@ -94,6 +94,13 @@ body{
     text-underline-offset: 7px;
 }
 
+#genHead ul li
+{
+    text-decoration: underline;
+    text-decoration-color: lightblue;
+    text-underline-offset: 7px;
+}
+
 
 #genText{
     position: relative;
@@ -112,7 +119,7 @@ body{
 #contain{
     position: relative;
     top:30px;
-    width:1000px;
+    width:68;
     height:570px;
     overflow-y: scroll;
     border:1px solid #ccc;
