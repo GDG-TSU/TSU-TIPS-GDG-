@@ -9,6 +9,81 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
     <title>Generate Tip</title>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, query } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+        
+
+    // Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyBNVtJXtXLSX-Q0Rf5C_ZGLp0rbL5GD6Fg",
+        authDomain: "tsu-tips.firebaseapp.com",
+        projectId: "tsu-tips",
+        storageBucket: "tsu-tips.firebasestorage.app",
+        messagingSenderId: "888234284095",
+        appId: "1:888234284095:web:5dfdb0dbecc6769b7d148a",
+        measurementId: "G-VS03GGC4H5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Reference to the collection
+    const myCollection = collection(db, "tips");
+
+
+    const callToGet = async ()=> {
+        const documents = query(myCollection);
+        const docs = await getDocs(documents);
+        const listOfTips = [];
+
+        docs.forEach((doc) => {
+            listOfTips.push(doc.data());
+            console.log(doc.data());
+        });
+
+
+        if(listOfTips.length > 0){
+            const randomIndex = Math.floor(Math.random() * listOfTips.length);
+            const randomTip = listOfTips[randomIndex];
+
+            const list = document.createElement("li");
+            const name = document.createElement('a');
+                name.innerHTML = randomTip.name;
+            const description = document.createElement('a');
+                description.innerHTML =  randomTip.description;
+            const category = document.createElement('a');
+                category.innerHTML = randomTip.category;
+            const classification = document.createElement('a');
+            classification.innerHTML = randomTip.classification;
+            const TSUId = document.createElement('a');
+                TSUId.innerHTML =  randomTip.TSUId;
+
+            list.appendChild(name);
+            list.appendChild(description);
+            list.appendChild(category);
+            list.appendChild(classification);
+            list.appendChild(TSUId);
+
+            document.getElementById('listOfTips').appendChild(list);
+
+            
+        }
+        else{
+            console.log("No documents available in the database");
+        }
+    }
+        const generate = document.getElementById('genButton');
+        generate.addEventListener('click', callToGet);
+    
+</script>
+
+
 </head>
 
  <header id = "genHead">
@@ -31,13 +106,13 @@
 <body class = "test">
     <div id = "contain">
         <div id = "listOfTips">
-
+     
         </div>
 
     </div>
 
     <div class = "genButtonContainer">
-        <button class = "animate__animated animate__fadeInLeft" id = "genButton" onclick="newTip();">
+        <button class = "animate__animated animate__fadeInLeft" id = "genButton">
             <p1 class ="genButtonText">Generate Tip</p1>
         </button>
     </div>
@@ -46,56 +121,5 @@
     </div>
 
 </body>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-<script>
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
-    // Firebase config
-    const firebaseConfig = {
-        apiKey: "AIzaSyBNVtJXtXLSX-Q0Rf5C_ZGLp0rbL5GD6Fg",
-        authDomain: "tsu-tips.firebaseapp.com",
-        projectId: "tsu-tips",
-        storageBucket: "tsu-tips.firebasestorage.app",
-        messagingSenderId: "888234284095",
-        appId: "1:888234284095:web:5dfdb0dbecc6769b7d148a",
-        measurementId: "G-VS03GGC4H5"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Reference to the collection
-    const myCollection = collection(db, "tips");
-
-    async function getData() {
-        const documents = query(myCollection);
-        const docs = await getDocs(documents);
-        const listOfTips = [];
-
-        docs.forEach((doc) => {
-            listOfTips.push(doc.data());
-        });
-
-
-        if(listOfTips.length > 0){
-            const randomIndex = Math.floor(Math.random() * listOfTips.length);
-            const randomTip = listOfTips[randomIndex];
-
-            const h2 = document.createElement("h2");
-            h2.innerHTML = randomTip.category;
-
-
-            
-        }
-        else{
-            console.log("No documents available in the database");
-        }
-    }
-
-
-
-</script>
 </html> 

@@ -5,6 +5,21 @@
         <meta name= 'viewport' content = 'width=device-width, initial-scale=1.0'>
         <link rel="stylesheet" href="../styles/UC.css">
     </head>
+    <script>
+        document.addEventListener('DomContentLoaded', ()=>{
+            const subtn = document.getElementById('submit');
+            subtn.addEventListener('click', ()=>{
+            addData();
+            document.getElementById("name").innerHTML = null;
+            document.getElementById("tNum").innerHTML = null;
+            document.getElementById("classification").innerHTML = null;
+            document.getElementById("category").innerHTML = null;
+            document.getElementById("description").innerHTML = null;
+
+        });
+        });
+        
+    </script>
     <header id = "genHead">
       <a href="Homepage.html" id="ova">
         <img  id = "textLogo" src = "../assets/TSU_textLogo.png" width = 200>

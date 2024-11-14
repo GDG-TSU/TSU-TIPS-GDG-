@@ -42,6 +42,10 @@ body{
     background-color: rgba(255, 255, 255, 0.96);
 }
 
+#listOfTips li a {
+    display:block;
+}
+
 #textLogo
 {
     margin:0;
