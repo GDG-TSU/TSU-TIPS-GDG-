@@ -1,16 +1,62 @@
 *{
     padding: 0;
     margin: 0;
-    font-family: "JetBrains Mono", sans-serif;
+    font-family: "Anton SC", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     box-sizing: border-box;
 }
+*{
+    text-decoration: none;
+
+}
+
+input {
+    transform: translate(50%,50%);
+    font-weight:50;
+}
+
+.navbar
+{
+    background: white; font-family: "Jetbrains Mono", sans-serif; padding-right: 15px; padding-left: 15px;
+    width:100%;
+}
+.navdiv
+{
+    display: flex; align-items: center; justify-content: space-between;
+}
 img{
-    width:10rem
+    height:3rem;
 }
-.nav {
-    display:flex
+.logo a
+{
+    font-size: 30px; font-weight: 600; color: royalblue; font-style: italic;
 }
-.D-Block{
+li
+{
+    list-style: none; display: inline-block;
+}
+li a
+{
+    color: royalblue; font-size: 25px; ; font-weight: bold; margin-right: 25px;
+}
+
+
+nav a:hover {
+    color:purple;
+}
+section {
+    display:block;
+}
+.D-Block::before {
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    /* border-radius: 30px; */
+    border: 100px solid #00539f;
+    transition: 0.5s;
+}
+.D-Block {
     display:block;
     background-color: #00539f;
     color: white;
@@ -21,8 +67,68 @@ img{
     width: 100%;
     margin-top: 30px;
     margin-bottom: 30px;
-    border-radius: 30px;
+    /* border-radius: 30px; */
     border: 100px solid #00539f;
-    transition: 0.5s;
+    transition: 3s;
     font-family: "jetbrains mono";
+
+}
+.Text-2 {
+    background-color:rgb(250, 250, 250);
+    border-radius:20px;
+    color: royalblue;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: transform 2s;
+}
+
+.Text-2:hover {
+    transform:scale(1.15);
+
+}
+
+.Text-2:hover ~ .Text-1 {
+   transform:scale(1.15);
+
+}
+
+.Text-1 {
+    transition: transform 2s;
+    font-size:25px;
+}
+/* 
+#btns button {
+    width:100px;
+    height:50px;
+    background-color: blue;
+    border-radius:5px;
+    margin:5px;
+    cursor:pointer;
+} */
+
+#btns {
+    text-align:center;
+}
+
+#btns button{
+    background-color: #00539F;
+    color: white;
+    border-radius: 5px;
+    border-style: inset;
+    border-color: red;
+    border-width: 4px;
+    padding: 10px;
+    font-size: 25px;
+    cursor: pointer;
+    margin: 40px;
+    font-family: "jetbrains mono";
+    width:300px;
+    height:100px;
+}
+
+#btns button:hover {
+    background-color: #00205B; 
+    border-color: #003DA5;
+    transition: 0.5s;
+    animation: pulse 2s;
 }
