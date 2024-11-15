@@ -126,6 +126,7 @@ body{
     border-radius: 10px;
     padding:3px;
 }
+
 #genHead ul li a:hover{
     background-color: rgb(0, 83, 159);
     color:white;
@@ -154,7 +155,7 @@ body{
     overflow-y: scroll;
     border:1px solid #ccc;
     padding:10px;
-    left:255px;
+    left:17%;
     border-radius: 12px;
     font-size: large;
 

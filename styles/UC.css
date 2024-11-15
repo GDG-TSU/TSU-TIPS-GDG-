@@ -19,6 +19,16 @@
     font-size: 50px;
     text-align: center;
 }
+#genHead ul li a{
+    transition: background-color 0.3s ease-in;
+    border-radius: 10px;
+    padding:3px;
+}
+#genHead ul li a:hover{
+    background-color: rgb(0, 83, 159);
+    color:white;
+    text-decoration: none;
+}
 
 #genHead > #ova {
     position: absolute;
@@ -97,12 +107,6 @@ body {
     color: white;
 }
 
-#genHead ul li {
-    text-decoration: underline;
-    text-decoration-color: lightblue;
-    text-underline-offset: 7px;
-}
-
 #genText {
     position: relative;
     left: 235px;
@@ -125,6 +129,7 @@ body {
     display: inline;
     color: white;
     transform: translate(40%, 50%);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
 }
 
 #over {
@@ -186,6 +191,7 @@ form {
     margin-right: auto;
     width: 100vw;
     height: 600px;
+    
 }
 
 .cornerImage {
@@ -209,4 +215,9 @@ form {
     border-style: none;
     color: white;
     margin-bottom: 100px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+a:visited{
+   color: white;
 }
