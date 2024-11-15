@@ -7,7 +7,7 @@ body{
     background-color: rgba(255, 255, 255, 0.975);
     height:50px;
     padding: 10px 20px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     display: flex;
     justify-content: space-between;
     border-radius: 10px;
@@ -173,4 +173,19 @@ body{
     text-underline-offset: 7px;
 }
 
+.theName{
+    text-decoration: underline;
+    text-decoration-color: rgb(0, 97, 193);
+    text-underline-offset: 7px;
+    margin-bottom: 5px;
+}
 
+.thelst{
+    opacity: 0; 
+    transform: translateY(100%); 
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+a:visited{
+    color: rgb(5, 83, 161);
+}

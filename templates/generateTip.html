@@ -52,24 +52,38 @@
             const randomTip = listOfTips[randomIndex];
 
             const list = document.createElement("li");
+            list.className = "thelst";
+            
             const name = document.createElement('a');
                 name.innerHTML = randomTip.name;
+                name.className = "theName";
+
+            const classification = document.createElement('span');
+                classification.innerHTML = " " +  "-" +" " + randomTip.classification + "<br> <br>";
+
             const description = document.createElement('a');
-                description.innerHTML =  randomTip.description;
+                description.innerHTML = "<br>" + '"&#8201'+ randomTip.description + '&#8201"' ;
+
             const category = document.createElement('a');
+            category.className = "cat";
                 category.innerHTML = randomTip.category;
-            const classification = document.createElement('a');
-            classification.innerHTML = randomTip.classification;
-            const TSUId = document.createElement('a');
-                TSUId.innerHTML =  randomTip.TSUId;
+
+            const TSUId = document.createElement('span');
+                TSUId.innerHTML =  " " +"-" + " " +  "( "+ randomTip.TSUId + ")";
+                
 
             list.appendChild(name);
             list.appendChild(description);
+            description.appendChild(classification);
             list.appendChild(category);
-            list.appendChild(classification);
-            list.appendChild(TSUId);
+            name.appendChild(TSUId);
 
             document.getElementById('listOfTips').appendChild(list);
+            setTimeout(function() 
+            { 
+                list.style.opacity = 1; 
+                list.style.transform = "translateY(0)"; 
+            }, 10);
 
             
         }
