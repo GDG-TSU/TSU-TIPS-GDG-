@@ -1,5 +1,7 @@
 body{
-     background: linear-gradient(to right, rgba(0, 56, 113),rgb(133, 179, 224)); 
+     background: linear-gradient(to right, rgba(0, 56, 113),rgb(133, 179, 224));
+     height:100vh;
+     overflow: hidden;
     
 }
 
@@ -148,7 +150,7 @@ body{
     position: relative;
     top:30px;
     width:68%;
-    height:570px;
+    height: 78%;
     overflow-y: scroll;
     border:1px solid #ccc;
     padding:10px;
