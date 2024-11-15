@@ -3,22 +3,138 @@
     <head>
         <meta charset = 'utf-8'>
         <meta name= 'viewport' content = 'width=device-width, initial-scale=1.0'>
-        <link rel = '' href = '../styles/UC.css'>
+        <link rel="stylesheet" href="../styles/UC.css">
     </head>
-    <body>
-        <figure>
-            <img src = "https://images.squarespace-cdn.com/content/v1/56b0d34927d4bda6674fe1df/1477320643777-0584EU51CWBX84AN3CY4/Tenn+state+3.jpg?format=2500w">
-            <figcaption>Ask away!</figcaption>
-        </figure>
-        <form action = "submit.php" method = "POST">
-            <label for = "name">Name:</label>
-            <input type = "text" id = "name" name = "name" required>
-            <label for = "TNum">TNumber</label>
-            <input type = "text" id = "TNum" name = "TSUId" required>
-            <label for = "tip">Help out! Tell us what you wish you knew when you first came to TSU</label>
-            <textarea id = "tip" name = "message" rows = '4' cols = '50'></textarea>
-            <button type = "submit" id ='submit'></button>
-        </form>
+    <script>
+        document.addEventListener('DomContentLoaded', ()=>{
+            const subtn = document.getElementById('submit');
+            subtn.addEventListener('click', ()=>{
+            addData();
+            document.getElementById("name").innerHTML = null;
+            document.getElementById("tNum").innerHTML = null;
+            document.getElementById("classification").innerHTML = null;
+            document.getElementById("category").innerHTML = null;
+            document.getElementById("description").innerHTML = null;
+
+        });
+        });
+        
+    </script>
+    <header id = "genHead">
+      <a href="Homepage.html" id="ova">
+        <img  id = "textLogo" src = "../assets/TSU_textLogo.png" width = 200>
+    </a>
+    <div id="ovaa">
     
+      <ul>
+          <li>
+              <a href="Homepage.html">Homepage</a>
+          </li>
+          <li>
+              <a href="generateTip.html"> generatedTips</a> 
+          </li>
+          <li>
+              <a>About Us</a>
+          </li>
+      </ul>
+    </div>
+  </header>
+    <body>
+        <div id="welcome">
+            <div id="over"><p>Welcome to the UpperClassman Page <br>Leave a tip for a new student on campus </p></div>
+            <img id="tsupic" src="https://images.squarespace-cdn.com/content/v1/56b0d34927d4bda6674fe1df/1477320643777-0584EU51CWBX84AN3CY4/Tenn+state+3.jpg?format=2500w">
+        </div>
+        
+        <div id="greeting">
+          <form id="form">
+              <label for="name">Enter Your Name:</label>
+              <input type="text" id="name" name="name" required>
+      
+              <label for="tNum">Enter Your Email:</label>
+              <input type="email" id="tNum" name="TSUId" required>
+      
+              <label for="classification">What is your classification:</label>
+              <select id="classification" name="classification">
+                  <option value="">(select one)</option>
+                  <option value="Sophomore">Sophomore</option>
+                  <option value="Junior">Junior</option>
+                  <option value="Senior">Senior</option>
+              </select>
+      
+              <label for="category">What is your Tip Category:</label>
+              <select id="category" name="Category">
+                <option value="">(select one)</option>
+                <option value="Academic Success">Academic Success</option>
+                <option value="Financial Aid & Budgeting">Financial Aid & Budgeting</option>
+                <option value="Dorm Life">Dorm Life</option>
+                <option value="Campus Dining">Campus Dining</option>
+                <option value="Social Life & Friendships">Social Life & Friendships</option>
+                <option value="Mental Health & Wellness">Mental Health & Wellness</option>
+                <option value="Time Management">Time Management</option>
+                <option value="Career Planning & Internships">Career Planning & Internships</option>
+                <option value="Campus Resources">Campus Resources</option>
+                <option value="Study Tips">Study Tips</option>
+                <option value="Extracurriculars & Clubs">Extracurriculars & Clubs</option>
+                <option value="Transportation & Getting Around">Transportation & Getting Around</option>
+                <option value="Safety & Security">Safety & Security</option>
+                <option value="Technology & IT Support">Technology & IT Support</option>
+                <option value="Health Services">Health Services</option>
+              </select>
+      
+              <label for="tip">Help out! Tell us what you wish you knew when you first came to TSU:</label>
+              <textarea id="description" name="message" rows="10" cols="30"></textarea>
+      
+               <input type="submit" id="submit">
+          </form>
+        </div>
+         
+        <div class = "cornerImage"></div>
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+            import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+        
+            // Firebase config
+            const firebaseConfig = {
+                apiKey: "AIzaSyBNVtJXtXLSX-Q0Rf5C_ZGLp0rbL5GD6Fg",
+                authDomain: "tsu-tips.firebaseapp.com",
+                projectId: "tsu-tips",
+                storageBucket: "tsu-tips.firebasestorage.app",
+                messagingSenderId: "888234284095",
+                appId: "1:888234284095:web:5dfdb0dbecc6769b7d148a",
+                measurementId: "G-VS03GGC4H5"
+            };
+        
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+        
+            // Reference to the collection
+            const myCollection = collection(db, "tips");
+        
+            // Add data to Firestore
+            async function addData() {
+                try {
+                    const docReference = await addDoc(myCollection, {
+                        name: document.getElementById("name").value,
+                        TSUId: document.getElementById("tNum").value,
+                        classification: document.getElementById("classification").value,
+                        category: document.getElementById("category").value,
+                        description: document.getElementById("description").value
+                    });
+                    console.log("Document written with ID: ", docReference.id);
+                    document.getElementById('form').reset();
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                }
+            }
+        
+            // Add event listener for form submission
+            document.getElementById("form").addEventListener('submit', function(event) {
+                event.preventDefault();  // Prevent page refresh
+                addData();
+            });
+        </script>
     </body>
 </html>

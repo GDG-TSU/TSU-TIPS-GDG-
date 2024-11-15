@@ -1,44 +1,52 @@
 <!DOCTYPE html>
 <head>
-    <link href="Homepage.css" rel="stylesheet">
+    <link href="../styles/Homepage.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton+SC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+    <script>
+        function outLink1() {
+            window.location.assign("generateTip.html");
+        }
+        function outLink2() {
+            window.location.assign("Upperclassmen.html");
+        }
+    </script>
 </head>
 <body>
-    <div>
-        <img src="https://www.tnstate.edu/publications/images/Logo_BlueOnWhite_2170w.jpg" alt="logo">
-    </div>
-    <nav>
-        <ul>
-            <li>
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </li>
-        </ul>
+    <nav class="navbar">
+        <div class="navdiv">
+            <div class="logo"><a href="#">
+                <img src="https://www.tnstate.edu/publications/images/Logo_BlueOnWhite_2170w.jpg" alt="logo">
+            </div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a> </li>
+                <li><a href="#">Support</a></li>
+            </ul>
+        </div>
     </nav>
     <section class="hero-section" id="Phasee-1">
-        <div class="text-1" id="Slogan">
-            <h1>A App Made For The Growing Freshmen and Students Of TSU</h1>
-            <h2>You Can Start</h2>
-        </div>
-        <div class="btn-1" id="Start-btn">
-           <button type="button">Start Searching</button> 
-        </div>
+           <input id = "searchbar" placeholder = "Search Tips"></input> 
     </section>
 </section>
 <section class="Description-section" id="Phasee-2">
     <div class="D-Block" id="Info-Block">
         <div class="Text-2" id="Description">
-            <p>Essenstial Tips <br>
+            <p>Essential Tips <br>
             For<br>
         Surviving College</p>
         </div>
-        <div class="text-1" id="Slogan">
-            <h6>An App Made For The Growing Freshmen and Students Of TSU</h6>
-            <h6>You Can Start</h6>
+        <div class="Text-1" id="Slogan">
+            <p>An App Made For The Growing Freshmen and Students Of TSU</p>
     </div>
+</div>
+<div id = "btns">
+<button onclick = outLink1()>Browse submissions</button>
+<button onclick = outLink2()>Add submission</button>
+</div>
 
 </body>
 
