@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link rel = "stylesheet" href = "../styles/login.css">
+    <title>Login</title>
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+<header id="loginHead">
+    <a href="Homepage.html">
+        <img class="animate__animated animate__fadeInLeft" id="textLogo" src="../assets/TSU_textLogo.png" width="200">
+    </a>
+    <ul>
+        <li class="animate__animated animate__fadeInLeft"><a href="generateTip.html">Generate Tip</a></li>
+        <li class="animate__animated animate__fadeInLeft"><a href="Upperclassmen.html">Submit Tip</a></li>
+    </ul>
+</header>
+
+<div class="login-center">
+    <div class="login-card animate__animated animate__fadeInUp">
+
+        <h2>Welcome back</h2>
+        <p class="sub">Sign in or create an account to continue</p>
+
+        <!-- tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">Sign in</button>
+            <button class="tab-btn" id="registerTab" onclick="switchTab('register')">Sign up</button>
+        </div>
+
+        <!-- sign in -->
+        <div id="loginPanel">
+            <div class="input-group">
+                <div class="input-wrap">
+                    <i class="ti ti-mail" aria-hidden="true"></i>
+                    <input type="email" id="loginEmail" placeholder="Email address">
+                </div>
+                <div class="input-wrap">
+                    <i class="ti ti-lock" aria-hidden="true"></i>
+                    <input type="password" id="loginPassword" placeholder="Password">
+                </div>
+            </div>
+            <button class="submit-btn" onclick="handleLogin()">Sign in</button>
+            <p class="error-msg" id="loginError"></p>
+        </div>
+
+        <!-- sign up -->
+        <div id="registerPanel">
+            <div class="input-group">
+                <div class="input-wrap">
+                    <i class="ti ti-user" aria-hidden="true"></i>
+                    <input type="text" id="regUsername" placeholder="Username">
+                </div>
+                <div class="input-wrap">
+                    <i class="ti ti-mail" aria-hidden="true"></i>
+                    <input type="email" id="regEmail" placeholder="Email address">
+                </div>
+                <div class="input-wrap">
+                    <i class="ti ti-lock" aria-hidden="true"></i>
+                    <input type="password" id="regPassword" placeholder="Password">
+                </div>
+                <div class="input-wrap">
+                    <i class="ti ti-lock-check" aria-hidden="true"></i>
+                    <input type="password" id="regConfirm" placeholder="Confirm password">
+                </div>
+            </div>
+            <button class="submit-btn" id="register-btn" onclick="handleRegister()">Create account</button>
+            <p class="error-msg" id="registerError"></p>
+        </div>
+
+                <!-- verify section, hidden by default -->
+        <div id="verifySection" style="display:none;">
+            <h3 style="color: rgb(0,56,113); font-family: 'Times New Roman', Times, serif; margin-bottom: 6px;">Check your email</h3>
+            <p style="font-size: 13px; color: #888; margin-bottom: 24px; font-family: 'Times New Roman', Times, serif;">We sent a 6 digit code to your TSU email</p>
+
+            <div class="input-group">
+                <div class="input-wrap">
+                    <i class="ti ti-shield-check" aria-hidden="true"></i>
+                    <input type="text" id="verifyCode" placeholder="Enter 6 digit code" maxlength="6">
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="handleVerify()">Verify</button>
+            <p class="error-msg" id="verifyError"></p>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    function switchTab(tab) {
+        const loginPanel    = document.getElementById("loginPanel");
+        const registerPanel = document.getElementById("registerPanel");
+        const loginTab      = document.getElementById("loginTab");
+        const registerTab   = document.getElementById("registerTab");
+
+        if(tab === "login") {
+            loginPanel.style.display    = "block";
+            registerPanel.style.display = "none";
+            loginTab.classList.add("active");
+            registerTab.classList.remove("active");
+        } else {
+            loginPanel.style.display    = "none";
+            registerPanel.style.display = "block";
+            registerTab.classList.add("active");
+            loginTab.classList.remove("active");
+        }
+    }
+
+async function handleLogin() {
+    const email    = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+    const errorEl  = document.getElementById("loginError");
+
+    if(!email || !password) {
+        errorEl.textContent = "Please fill in all fields.";
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:3000/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if(!res.ok) {
+            errorEl.textContent = data.message;
+            return;
+        }
+
+        // save token for later use
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("username", data.username);
+
+        // redirect to main page
+        window.location.href = "generateTip.html";
+
+    } catch(err) {
+        errorEl.textContent = "Could not connect to server.";
+    }
+}
+
+async function handleRegister() {
+    const username = document.getElementById("regUsername").value.trim();
+    const email    = document.getElementById("regEmail").value.trim();
+    const password = document.getElementById("regPassword").value.trim();
+    const confirm  = document.getElementById("regConfirm").value.trim();
+    const errorEl  = document.getElementById("registerError");
+    const reg_btn = document.getElementById("register-btn");
+
+    if(!username || !email || !password || !confirm) {
+        errorEl.textContent = "Please fill in all fields.";
+        return;
+    }
+
+    if(password !== confirm) {
+        errorEl.textContent = "Passwords do not match.";
+        return;
+    }
+
+    if (!email.endsWith("@my.tnstate.edu") && reg_btn.textContent !== "Continue?") {
+        reg_btn.textContent = "Continue?";
+        errorEl.textContent = "Note: Non-TSU emails will have their tips automatically deleted at the end of the day.";
+        return;
+    }
+
+    
+    try {
+        const res = await fetch("http://localhost:3000/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await res.json();
+
+        if(!res.ok) {
+            errorEl.textContent = data.message;
+            return;
+        }
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("username", data.username);
+
+        if(data.isTSU) {
+            // hide the register panel, show the verify section
+            localStorage.setItem("pendingEmail", email);
+            document.getElementById("registerPanel").style.display = "none";
+            document.getElementById("verifySection").style.display = "block";
+
+            // hide the tabs too so they cant switch away
+            document.querySelector(".tabs").style.display = "none";
+        } else {
+            window.location.href = "generateTip.html";
+        }
+
+
+    } catch(err) {
+        errorEl.textContent = "Could not connect to server.";
+    }
+}
+
+async function handleVerify() {
+    const code    = document.getElementById("verifyCode").value.trim();
+    const email   = localStorage.getItem("pendingEmail");
+    const errorEl = document.getElementById("verifyError");
+
+    if(!code || code.length !== 6) {
+        errorEl.textContent = "Please enter the 6 digit code.";
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:3000/auth/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, code })
+        });
+
+        const data = await res.json();
+
+        if(!res.ok) {
+            errorEl.textContent = data.message;
+            return;
+        }
+
+        localStorage.removeItem("pendingEmail");
+        window.location.href = "generateTip.html";
+
+    } catch(err) {
+        errorEl.textContent = "Could not connect to server.";
+    }
+}
+</script>
+
+</body>
+</html>

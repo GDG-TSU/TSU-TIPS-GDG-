@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "../styles/generateTip.css">
+    <link rel = "stylesheet" href = "../styles/UC.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    <title>Generate Tip</title>
+
+</head>
+
+ <header id = "genHead">
+    <a href="Homepage.html">
+    <img  class = "animate__animated animate__fadeInLeft" id = "textLogo" src = "../assets/TSU_textLogo.png" width = 200>
+    </a>
+    <button id="hamburger" aria-label="Toggle menu">
+        <i class="ti ti-menu-2"></i>
+    </button>
+    <ul id="navLinks">
+        <li class = "animate__animated animate__fadeInLeft">
+            <a href ="generateTip.html">Generate Tip</a>
+        </li>
+        <li class = "animate__animated animate__fadeInLeft">
+            <a href = ""> Submit Tip</a> 
+        </li>
+        <li class="animate__animated animate__fadeInLeft">
+            <div class="profile-wrap" id="profileWrap">
+                <div class="profile-btn" id="profileBtn" aria-label="Open profile menu">
+                    <i class="ti ti-user" aria-hidden="true"></i>
+                </div>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <div class="dropdown-header">
+                        <p id="dropUsername">Guest</p>
+                        <p>tips submitted</p>
+                        <span id="tipCount">loading...</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item logout" id="logoutBtn">
+                        <i class="ti ti-logout" aria-hidden="true"></i>
+                        Log out
+                    </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</header>
+<body>
+
+<div id="submit_overlay" class="overlay hidden">
+  <div class="overlay_card">
+    <div id="overlay_spinner" class="spinner"></div>
+    <i id="overlay_icon" class="ti ti-check hidden"></i>
+    <p id="overlay_message">Submitting your tip...</p>
+  </div>
+</div>
+    <div class="centerWrap" >
+        <div id="Q_panel" >
+            <div id = "content_wrapper">
+                <div id = "stage" class = "animate__animated animate__fadeInLeft">
+                    <a class = "success_note">TIP submitted scucesfully!</a>
+                    <h1 class = "header_text">WELCOME!</h1>
+                    <h3 class = "sub_text">Submit a tip below!</h3>
+                    <div class = "body_wrapper"><button class = "f_button" onclick = "nextStage()">BEGIN</button></div>
+                </div>
+            </div>
+            <div id = "forward" class = "button">
+                <img src="arrow2.png" alt="Description" width="100" height="100">
+            </div>
+            <div id = "backward" class = "button">
+                <img src="arrow2.png" alt="Description" width="100" height="100">
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<script>
+
+    // mobile app hamburger button logic ------------------------------------------------------------------
+    document.getElementById("hamburger").addEventListener("click", (e) => {
+        e.stopPropagation();
+        document.querySelectorAll("#navLinks li").forEach(li => {
+            li.classList.toggle("open");
+        });
+    });
+
+    document.addEventListener("click", () => {
+        document.getElementById("navLinks").classList.remove("open");
+    });
+
+    document.getElementById("navLinks").addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+//----------------------------------------------------------------------------------------------------
+    const profileBtn = document.getElementById("profileBtn");
+    const profileDropdown = document.getElementById("profileDropdown");
+    const dropUsername = document.getElementById("dropUsername");
+    const tipCount = document.getElementById("tipCount");
+    const contain = document.getElementById("Q_panel");  // if adding this code piece to a new page, change this one line to whatever is overlapping the dropdown
+
+    // show username or guest on load
+    const storedUsername = localStorage.getItem("username");
+    dropUsername.textContent = storedUsername ? storedUsername : "Guest";
+
+    profileBtn.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const isOpen = profileDropdown.classList.toggle("open");
+
+
+    if(isOpen) {
+        if(contain) contain.style.zIndex = "-999";
+
+        try {
+            // decode user id from token
+            const token = localStorage.getItem("token");
+            let userId = null;
+            if(token){
+                const payload = JSON.parse(atob(token.split(".")[1]));
+                userId = payload.id;
+            }
+            const res = await fetch(`http://localhost:3000/tips/count?user_id=${userId}`);
+            const data = await res.json();
+            
+            tipCount.textContent = `${data.count} tip${data.count !== 1 ? "s" : ""}`;
+        } catch(err) {
+            tipCount.textContent = "unavailable";
+        }
+    } 
+        else {
+            contain.style.zIndex = "1";
+        }
+    });
+
+    document.addEventListener("click", () => {
+        profileDropdown.classList.remove("open");
+        contain.style.zIndex = "1";
+    });
+
+    profileDropdown.addEventListener("click", e => e.stopPropagation());
+
+// Once the user clicks logout, it'll take u back to login screen. clears the local storage
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("pendingEmail"); // clear this too just in case
+    window.location.href = "login.html";
+});
+
+
+
+// TIP SUBMISSION LOGIC --------------------------------------------------------------------------------------------------
+    const input_list = [];
+    let prompt_counter = 0;
+
+    const prompts = [
+        {text: "Enter your name:", type: "text", placeholder: "Your name here"},
+        {text: "Enter your classification:", type: "select", options: ["Freshman", "Sophomore", "Junior", "Senior","Staff","Alumni"]},
+        {text: "Choose the category for your tip:", type: "select", options: ["Study", "Networking", "Campus Life", "Career", "Finance", "Health & Wellness", "Housing", "Food", "Transportation", "Clubs & Organizations"]},
+        {text: "Enter the tip you want:", type: "textarea", placeholder: "Enter your tip", maxLength: 300}
+    ];
+
+    document.getElementById("forward").addEventListener("click", advanceStage);
+    document.getElementById("backward").addEventListener("click", redoStage);
+
+    function getInputValue() {
+        const input = document.getElementById("user_input");
+        return input?.dataset?.value ?? input?.value ?? "";
+    }
+
+    function nextStage(){
+        let forward = document.getElementById("forward");
+        let backward = document.getElementById("backward");
+        forward.style.opacity = 1;
+        backward.style.visibility = prompt_counter > 0 ? "visible" : "hidden";
+        backward.style.opacity = 1;
+
+        const stage = prompts[prompt_counter];
+        if(!stage) return;
+
+        const header = document.querySelector(".header_text");
+        const body = document.querySelector(".body_wrapper");
+
+        header.innerHTML = stage.text;
+        body.innerHTML = "";
+
+        let input;
+
+        if(stage.type === "select"){
+            const wrapper = document.createElement("div");
+            wrapper.id = "user_input";
+            wrapper.style.cssText = `
+                max-height: 200px;
+                overflow-y: auto;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                width: 100%;
+            `;
+
+            stage.options.forEach(opt => {
+                const item = document.createElement("div");
+                item.textContent = opt;
+                item.style.cssText = `
+                    padding: 10px 16px;
+                    cursor: pointer;
+                    font-size: 15px;
+                    color: rgb(0, 56, 113);
+                    border-bottom: 0.5px solid #e0e0e0;
+                    transition: background 0.15s;
+                `;
+
+                item.addEventListener("mouseenter", () => item.style.background = "#e8f0fb");
+                item.addEventListener("mouseleave", () => {
+                    if(wrapper.dataset.value !== opt) item.style.background = "";
+                });
+
+                item.addEventListener("click", () => {
+                    wrapper.querySelectorAll("div").forEach(d => {
+                        d.style.background = "";
+                        d.style.fontWeight = "400";
+                    });
+                    item.style.background = "rgba(0, 56, 113, 0.12)";
+                    item.style.fontWeight = "500";
+                    wrapper.dataset.value = opt;
+                });
+
+                wrapper.appendChild(item);
+            });
+
+            // restore previous selection if it exists
+            if(input_list[prompt_counter]){
+                wrapper.dataset.value = input_list[prompt_counter];
+                wrapper.querySelectorAll("div").forEach(d => {
+                    if(d.textContent === input_list[prompt_counter]){
+                        d.style.background = "rgba(0, 56, 113, 0.12)";
+                        d.style.fontWeight = "500";
+                    }
+                });
+            }
+
+            body.appendChild(wrapper);
+            return;
+
+        } else {
+            if(stage.type === "textarea"){
+                input = document.createElement("textarea");
+                input.placeholder = stage.placeholder;
+                input.style.cssText = `
+                    width: 100%;
+                    height: 120px;
+                    resize: none;
+                    padding: 10px;
+                    font-size: 15px;
+                    font-family: inherit;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                    box-sizing: border-box;
+                    line-height: 1.5;
+                `;
+            } else {
+                input = document.createElement("input");
+                input.type = stage.type;
+                input.placeholder = stage.placeholder;
+            }
+
+            input.id = "user_input";
+
+            if(input_list[prompt_counter]){
+                input.value = input_list[prompt_counter];
+            }
+
+            body.appendChild(input);
+
+            if(stage.maxLength){
+                input.maxLength = stage.maxLength;
+
+                const counter = document.createElement("p");
+                counter.style.cssText = "font-size: 13px; color: rgb(0,56,113); text-align: right; margin: 4px 0 0;";
+                counter.textContent = `0 / ${stage.maxLength}`;
+                body.appendChild(counter);
+
+                input.addEventListener("input", () => {
+                    counter.textContent = `${input.value.length} / ${stage.maxLength}`;
+                    counter.style.color = input.value.length >= stage.maxLength * 0.9
+                        ? "rgb(180,30,30)"
+                        : "rgb(0,56,113)";
+                });
+            }
+
+            input.addEventListener("keydown",(e)=>{
+                if(e.key === "Enter" && stage.type !== "textarea") advanceStage();
+            });
+
+            input.focus();
+        }
+    }
+
+function advanceStage(){
+    const value = getInputValue().trim();
+
+    if(!value){
+        const input = document.getElementById("user_input");
+        input.style.border = "1.5px solid rgb(180, 30, 30)";
+        input.style.borderRadius = "8px";
+
+        setTimeout(() => {
+            input.style.border = "";
+        }, 1500);
+        return;
+    }
+
+    if(prompt_counter < prompts.length - 1){
+
+        input_list[prompt_counter] = getInputValue();
+
+        prompt_counter++;
+        const content = document.getElementById("content_wrapper");
+        content.style.transform = "translateX(80%)";
+
+        content.addEventListener("transitionend", function handler() {
+            content.removeEventListener("transitionend", handler);
+            content.style.opacity = 0;
+            content.style.transform = "translateX(-80%)";
+            content.addEventListener("transitionend", function handler2() {
+                content.removeEventListener("transitionend", handler2);
+                content.style.opacity = 1;
+                nextStage();
+                content.style.transform = "translateX(0%)";
+            });
+        });
+
+    } else {
+        input_list[prompt_counter] = getInputValue();
+
+        const overlay = document.getElementById("submit_overlay");
+        const spinner = document.getElementById("overlay_spinner");
+        const icon    = document.getElementById("overlay_icon");
+        const message = document.getElementById("overlay_message");
+
+        function showOverlay(state, text) {
+            overlay.classList.remove("hidden");
+            spinner.classList.toggle("hidden", state !== "loading");
+            icon.className = "ti hidden";
+
+            if(state === "success"){
+                icon.className = "ti ti-circle-check";
+            } else if(state === "error"){
+                icon.className = "ti ti-circle-x";
+            }
+
+            message.textContent = text;
+            setTimeout(() => { icon.style.opacity = 1; }, 100);
+        }
+
+        function hideOverlay() {
+            overlay.classList.add("hidden");
+            icon.style.opacity = 0;
+        }
+
+        showOverlay("loading", "Submitting your tip...");
+
+        // decode user id from token
+        const token = localStorage.getItem("token");
+        let userId = null;
+        if(token){
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            userId = payload.id;
+        }
+
+        // fix nav bar on smaller screens. add .env folder. Host it on free github or somethin
+
+        fetch("http://localhost:3000/tips", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                tip_owner:            input_list[0],
+                owner_classification: input_list[1],
+                tip_category:         input_list[2],
+                tip_body:             input_list[3],
+                user_id:              userId   // null if not logged in
+            })
+        })
+        .then(response => {
+            if(!response.ok) throw new Error("Server returned an error");
+            return response.json();
+        })
+        .then(data => {
+            console.log("Tip submitted:", data);
+            showOverlay("success", "Tip submitted successfully!");
+
+            setTimeout(() => {
+                hideOverlay();
+                input_list.length = 0;
+                prompt_counter = 0;
+                nextStage();
+            }, 1800);
+        })
+        .catch(error => {
+            console.error(error);
+            showOverlay("error", "Submission failed. Please try again.");
+            setTimeout(hideOverlay, 2500);
+        });
+    }
+}
+
+    function redoStage(){
+        if(prompt_counter === 0) return;
+        slide("backward", () => {
+            prompt_counter--;
+            nextStage();
+        });
+    }
+
+    function slide(direction, changeStage){
+        const content = document.getElementById("content_wrapper");
+
+        const exit  = direction === "forward" ? "80%"   : "-100%";
+        const enter = direction === "forward" ? "-100%" : "80%";
+
+        content.style.transform = `translateX(${exit})`;
+
+        setTimeout(() => {
+            content.style.opacity = 0;
+            content.style.transform = `translateX(${enter})`;
+
+            changeStage();
+
+            requestAnimationFrame(() => {
+                content.style.opacity = 1;
+                content.style.transform = "translateX(0)";
+            });
+        }, 600);
+    }
+</script>
+</body>
+</html>

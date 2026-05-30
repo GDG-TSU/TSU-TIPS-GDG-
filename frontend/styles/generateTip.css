@@ -5,15 +5,17 @@ body{
     
 }
 
-#genHead{
+#genHead {
     background-color: rgba(255, 255, 255, 0.975);
-    height:50px;
+    height: 50px;
     padding: 10px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     border-radius: 10px;
+    position: relative;
 }
+
 
 #genHead h1 {
     margin-top: 10px;
@@ -29,6 +31,7 @@ body{
     border-radius: 50%;
     width:300px;
     height:300px;
+    z-index:-4;
 }
 
 #cornerImage2
@@ -58,6 +61,7 @@ body{
     width:fit-content;
     margin-bottom: 50px;
     background-color: rgba(255, 255, 255, 0.96);
+    
 }
 
 #listOfTips li a {
@@ -70,17 +74,17 @@ body{
     padding:0;
 }
 
-#genHead ul{
-    display:flex;
-    gap:100px;
+#genHead ul {
+    display: flex;
+    gap: 60px;
     list-style-type: none;
-    float: right;
-    margin: 20px;
-    margin-right:30px;
+    margin-left: auto;
+    padding: 0;
+    align-items: center;
     font-size: 20px;
-    color:rgb(5, 83, 161);
+    color: rgb(5, 83, 161);
     font-weight: 700;
-    font-family:'Times New Roman', Times, serif ;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 #genHead a{
@@ -92,6 +96,7 @@ body{
     left: 50%;
     transform: translateX(-50%);
     bottom: 20px;
+    z-index:999;
 }
 
 #genButton {
@@ -158,10 +163,9 @@ body{
     left:17%;
     border-radius: 12px;
     font-size: large;
-
     border: none; /* Hide border */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
-    
+    /* Once this z index is negative, the scroll bar and the li bubbles can be overlapped */
     scrollbar-width: thin;
     transition: scrollbar-color 0.5s ease;
     scrollbar-color: #71A1D0 transparent;
@@ -186,9 +190,168 @@ body{
 .thelst{
     opacity: 0; 
     transform: translateY(100%); 
-    transition: opacity 0.9s ease-out, transform 0.5s ease-out;
+    transition: opacity 0.9s ease-out, transform 0.7s ease-out;
 }
 
 a:visited{
     color: rgb(5, 83, 161);
+}
+
+.profile-wrap {
+    position: relative;
+    margin-left: auto;
+    
+}
+
+.profile-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgb(0, 56, 113);
+    border: 2px solid rgb(0, 56, 113);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.profile-btn:hover {
+    background: rgb(0, 83, 159);
+    border-color: rgb(0, 83, 159);
+}
+
+.profile-btn i {
+    color: white;
+    font-size: 20px;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    border: 0.5px solid rgba(0, 0, 0, 0.12);
+    min-width: 200px;
+    overflow: hidden;
+    display: none;
+    z-index: 999;
+}
+
+.profile-dropdown.open {
+    display: block;
+}
+
+.dropdown-header {
+    padding: 14px 16px 10px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.dropdown-header p {
+    margin: 0 0 2px;
+    font-size: 12px;
+    color: #888;
+}
+
+.dropdown-header span {
+    font-size: 14px;
+    color: rgb(0, 56, 113);
+    font-weight: 500;
+}
+
+.dropdown-divider {
+    height: 0.5px;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: rgb(0, 56, 113);
+    cursor: pointer;
+    transition: background 0.15s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 56, 113, 0.06);
+}
+
+.dropdown-item.logout {
+    color: #c62828;
+}
+
+.dropdown-item.logout:hover {
+    background: rgba(198, 40, 40, 0.06);
+}
+
+#dropUsername {
+    font-size: 15px;
+    font-weight: 700;
+    color: rgb(0, 56, 113);
+    margin: 0 0 4px;
+}
+
+#hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 28px;
+    color: rgb(0, 56, 113);
+}
+
+@media (max-width: 600px) {
+    #genHead {
+        flex-wrap: wrap;
+        height: auto;
+    
+    }
+
+    #hamburger {
+        display: block;
+    }
+
+    #navLinks {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        padding: 10px 0;
+        margin-left: 0;
+        font-size: 16px;
+        
+    }
+
+
+    #navLinks li.open {
+        display: flex;
+        
+    }
+
+    #navLinks li {
+        display:none;
+        margin-left: 0;
+        padding: 10px 16px;
+        border-top: 0.5px solid rgba(0, 56, 113, 0.1);
+    }
+
+    #navLinks li a {
+        display: block;
+        width: 100%;
+    }
+
+    .profile-dropdown {
+        position: fixed;
+        top: auto;
+        left: 16px;
+        right: 16px;
+    }
 }

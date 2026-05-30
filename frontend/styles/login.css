@@ -1,0 +1,181 @@
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: linear-gradient(to right, rgba(0, 56, 113), rgb(133, 179, 224));
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            padding: 8px;
+        }
+
+        /* ── HEADER ── */
+        #loginHead {
+            background-color: rgba(255, 255, 255, 0.975);
+            height: 70px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        #loginHead ul {
+            display: flex;
+            gap: 60px;
+            list-style-type: none;
+            margin-left: auto;
+            padding: 0;
+            align-items: center;
+            font-size: 20px;
+            color: rgb(5, 83, 161);
+            font-weight: 700;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #loginHead ul li a {
+            text-decoration: none;
+            color: rgb(5, 83, 161);
+            transition: background-color 0.3s ease-in;
+            border-radius: 10px;
+            padding: 3px 6px;
+        }
+
+        #loginHead ul li a:hover {
+            background-color: rgb(0, 83, 159);
+            color: white;
+        }
+
+        /* ── CARD ── */
+        .login-center {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 16px;
+            padding: 40px 48px;
+            width: 420px;
+            box-shadow: 2px 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-card h2 {
+            color: rgb(0, 56, 113);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .login-card p.sub {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 28px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* ── TABS ── */
+        .tabs {
+            display: flex;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #aaa;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .tab-btn.active {
+            color: rgb(0, 56, 113);
+            border-bottom: 2px solid rgb(0, 56, 113);
+        }
+
+        /* ── INPUTS ── */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #aaa;
+            pointer-events: none;
+        }
+
+        .input-wrap input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 1.5px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            color: rgb(0, 56, 113);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-wrap input:focus {
+            border-color: rgb(0, 83, 159);
+        }
+
+        .input-wrap input::placeholder {
+            color: #bbb;
+        }
+
+        /* ── BUTTON ── */
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(145deg, #00539f, #006bb3);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Times New Roman', Times, serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(145deg, #004080, #00539f);
+        }
+
+        /* ── ERROR ── */
+        .error-msg {
+            font-size: 13px;
+            color: #c62828;
+            text-align: center;
+            margin-top: 12px;
+            min-height: 18px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── PANEL TOGGLE ── */
+        #registerPanel { display: none; }

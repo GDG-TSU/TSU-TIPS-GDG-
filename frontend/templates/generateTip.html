@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "../styles/generateTip.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <title>Generate Tip</title>
+
+</head>
+
+
+
+<header id="genHead">
+    <a href="Homepage.html">
+        <img class="animate__animated animate__fadeInLeft" id="textLogo" src="../assets/TSU_textLogo.png" width="200">
+    </a>
+
+    <button id="hamburger" aria-label="Toggle menu">
+        <i class="ti ti-menu-2"></i>
+    </button>
+
+    <ul id="navLinks">
+        <li class="animate__animated animate__fadeInLeft">
+            <a href="">Generate Tip</a>
+        </li>
+        <li class="animate__animated animate__fadeInLeft">
+            <a href="Upperclassmen.html">Submit Tip</a>
+        </li>
+        <li class="animate__animated animate__fadeInLeft">
+            <div class="profile-wrap" id="profileWrap">
+                <div class="profile-btn" id="profileBtn" aria-label="Open profile menu">
+                    <i class="ti ti-user" aria-hidden="true"></i>
+                </div>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <div class="dropdown-header">
+                        <p id="dropUsername">Guest</p>
+                        <p>tips submitted</p>
+                        <span id="tipCount">loading...</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item logout" id="logoutBtn">
+                        <i class="ti ti-logout" aria-hidden="true"></i>
+                        Log out
+                    </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</header>
+<body class = "test">
+    <div id = "contain">
+        <div id = "listOfTips">
+     
+        </div>
+
+    </div>
+
+    <div class = "genButtonContainer">
+        <button class = "animate__animated animate__fadeInLeft" id = "genButton">
+            <p1 class ="genButtonText">Generate Tip</p1>
+        </button>
+    </div>
+
+    <div id = "cornerImage" >
+    </div>
+
+    <div id = "cornerImage2" >
+    </div>
+
+
+<script>
+// mobile app hamburger button logic ------------------------------------------------------------------
+    document.getElementById("hamburger").addEventListener("click", (e) => {
+        e.stopPropagation();
+        document.querySelectorAll("#navLinks li").forEach(li => {
+            li.classList.toggle("open");
+        });
+    });
+
+    document.addEventListener("click", () => {
+        document.getElementById("navLinks").classList.remove("open");
+    });
+
+    document.getElementById("navLinks").addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+
+// profile button logic ----------------------------------------------------------------------------------
+
+    const profileBtn = document.getElementById("profileBtn");
+    const profileDropdown = document.getElementById("profileDropdown");
+    const dropUsername = document.getElementById("dropUsername");
+    const tipCount = document.getElementById("tipCount");
+    const contain = document.getElementById("contain");
+
+    // show username or guest on load
+    const storedUsername = localStorage.getItem("username");
+    dropUsername.textContent = storedUsername ? storedUsername : "Guest";
+
+    profileBtn.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const isOpen = profileDropdown.classList.toggle("open");
+
+    if(isOpen) {
+        if(contain) contain.style.zIndex = "-999";
+
+        try {
+            // decode user id from token
+            const token = localStorage.getItem("token");
+            let userId = null;
+            if(token){
+                const payload = JSON.parse(atob(token.split(".")[1]));
+                userId = payload.id;
+            }
+            const res = await fetch(`http://localhost:3000/tips/count?user_id=${userId}`);
+            const data = await res.json();
+            
+            tipCount.textContent = `${data.count} tip${data.count !== 1 ? "s" : ""}`;
+        } catch(err) {
+            tipCount.textContent = "unavailable";
+        }
+    }
+    else {
+            contain.style.zIndex = "1";
+        }
+    });
+
+    document.addEventListener("click", () => {
+        profileDropdown.classList.remove("open");
+        contain.style.zIndex = "1";
+    });
+
+    profileDropdown.addEventListener("click", e => e.stopPropagation());
+
+    // Once the user clicks logout, it'll take u back to login screen. clears the local storage
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("pendingEmail"); // clear this too just in case
+        window.location.href = "login.html";
+    });
+
+    // Generate tip logic -----------------------------------------------------------------------------------------------
+
+    //INSERT INTO Tips (tip_owner, owner_classification, tip_category, tip_body)
+    //VALUES ('Cameron Shaw', 'Junior', 'Study', 'Don’t skip your classes!');
+
+    const fetchTips = async () => {
+    const tip_list = document.getElementById("listOfTips");
+
+    try {
+        const response = await fetch("http://localhost:3000/tips/random"); // backend endpoint
+        const tip = await response.json();
+        
+
+        const new_tip = document.createElement("li");
+        const owner = document.createElement("a");
+        const tip_body = document.createElement("span");
+        const category = document.createElement("a");
+
+        owner.className = "theName";
+        new_tip.className = "thelst";
+        category.className = "Category";
+
+        owner.innerHTML = `${tip.tip_owner} - ${tip.owner_classification} <br> <br>`;
+        tip_body.innerHTML = `${tip.tip_body} <br><br>`;
+        category.innerHTML = `${tip.tip_category}<br>`;
+
+        new_tip.appendChild(owner);
+        new_tip.appendChild(tip_body);
+        new_tip.appendChild(category);
+
+        tip_list.appendChild(new_tip);
+
+        // Force reflow for transition
+        void new_tip.offsetWidth;
+        new_tip.style.opacity = 1;
+        new_tip.style.transform = "translateY(0)";
+
+    } catch (err) {
+        console.error("Error fetching tips:", err);
+    }
+};
+
+    const tip_button = document.getElementById("genButton");
+    tip_button.addEventListener("click", fetchTips);
+    
+    
+</script>
+</body>
+
+</html> 
