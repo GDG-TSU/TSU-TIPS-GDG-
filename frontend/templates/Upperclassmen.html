@@ -372,7 +372,8 @@ function advanceStage(){
             userId = payload.id;
         }
 
-        // fix nav bar on smaller screens. add .env folder. Host it on free github or somethin
+        //  host it on free github or somethin
+
 
         fetch("http://localhost:3000/tips", {
             method: "POST",
@@ -386,13 +387,15 @@ function advanceStage(){
             })
         })
         .then(response => {
-            if(!response.ok) throw new Error("Server returned an error");
+            if(!response.ok) {
+                return response.json().then(data => {
+                    throw new Error(data.message);
+                });
+            }
             return response.json();
         })
         .then(data => {
-            console.log("Tip submitted:", data);
             showOverlay("success", "Tip submitted successfully!");
-
             setTimeout(() => {
                 hideOverlay();
                 input_list.length = 0;
@@ -401,8 +404,7 @@ function advanceStage(){
             }, 1800);
         })
         .catch(error => {
-            console.error(error);
-            showOverlay("error", "Submission failed. Please try again.");
+            showOverlay("error", error.message || "Submission failed. Please try again.");
             setTimeout(hideOverlay, 2500);
         });
     }

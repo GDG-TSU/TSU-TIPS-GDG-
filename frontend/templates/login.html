@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link rel = "stylesheet" href = "../styles/generateTip.css">
     <link rel = "stylesheet" href = "../styles/login.css">
     <title>Login</title>
 
@@ -14,21 +15,36 @@
     </style>
 </head>
 <body>
+<style>
+    #genHead {
+        height: 70px !important;
+    }
+</style>
 
-<header id="loginHead">
+
+<header id="genHead" class = "loginHead">
     <a href="Homepage.html">
         <img class="animate__animated animate__fadeInLeft" id="textLogo" src="../assets/TSU_textLogo.png" width="200">
     </a>
-    <ul>
-        <li class="animate__animated animate__fadeInLeft"><a href="generateTip.html">Generate Tip</a></li>
-        <li class="animate__animated animate__fadeInLeft"><a href="Upperclassmen.html">Submit Tip</a></li>
+    <button id="hamburger" aria-label="Toggle menu">
+        <i class="ti ti-menu-2"></i>
+    </button>
+
+    <ul id="navLinks">
+        <li class="animate__animated animate__fadeInLeft">
+            <a href="generateTip.html">Generate Tip</a>
+        </li>
+        <li class="animate__animated animate__fadeInLeft">
+            <a href="Upperclassmen.html">Submit Tip</a>
+        </li>
+
     </ul>
 </header>
 
 <div class="login-center">
     <div class="login-card animate__animated animate__fadeInUp">
 
-        <h2>Welcome back</h2>
+        <h2>Welcome</h2>
         <p class="sub">Sign in or create an account to continue</p>
 
         <!-- tabs -->
@@ -98,6 +114,24 @@
 </div>
 
 <script>
+
+    document.getElementById("hamburger").addEventListener("click", (e) => {
+        e.stopPropagation();
+        document.querySelectorAll("#navLinks li").forEach(li => {
+            li.classList.toggle("open");
+        });
+    });
+
+    document.addEventListener("click", () => {
+        document.getElementById("navLinks").classList.remove("open");
+    });
+
+    document.getElementById("navLinks").addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+
+
+    //-------------------------------------------------------------------------------------------
     function switchTab(tab) {
         const loginPanel    = document.getElementById("loginPanel");
         const registerPanel = document.getElementById("registerPanel");

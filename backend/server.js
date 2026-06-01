@@ -28,9 +28,19 @@ const transporter = nodemailer.createTransport({
 
 // Endpoint to get one random tip
 app.get("/tips/random", (req, res) => {
-    connection.query("SELECT * FROM Tips ORDER BY RAND() LIMIT 1", (err, results) => {
-        if (err) return res.status(500).send(err);
-        if (results.length === 0) return res.status(404).json({ message: "No tips found" });
+    const { category } = req.query;
+
+    let sql = "SELECT * FROM Tips ORDER BY RAND() LIMIT 1";
+    let params = [];
+
+    if(category && category !== "All") {
+        sql = "SELECT * FROM Tips WHERE tip_category = ? ORDER BY RAND() LIMIT 1";
+        params = [category];
+    }
+
+    connection.query(sql, params, (err, results) => {
+        if(err) return res.status(500).send(err);
+        if(results.length === 0) return res.status(404).json({ message: "No tips found" });
         res.json(results[0]);
     });
 });
@@ -65,9 +75,17 @@ app.get("/tips", (req, res) => {
 
 
 // endpoint to insert tip into database
+const leoProfanity = require("leo-profanity");
+
 app.post("/tips", (req, res) => {
 
     const { tip_owner, owner_classification, tip_category, tip_body,user_id } = req.body;
+
+    // check for inappropriate language
+    if(leoProfanity.check(tip_body) || leoProfanity.check(tip_owner)) {
+        return res.status(400).json({ message: "Rejected: Tip contains inappropriate language." });
+    }
+
 
     const sql = `
         INSERT INTO Tips

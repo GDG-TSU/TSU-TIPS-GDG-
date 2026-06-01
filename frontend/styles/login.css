@@ -11,42 +11,6 @@
         }
 
         /* ── HEADER ── */
-        #loginHead {
-            background-color: rgba(255, 255, 255, 0.975);
-            height: 70px;
-            padding: 10px 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            border-radius: 10px;
-        }
-
-        #loginHead ul {
-            display: flex;
-            gap: 60px;
-            list-style-type: none;
-            margin-left: auto;
-            padding: 0;
-            align-items: center;
-            font-size: 20px;
-            color: rgb(5, 83, 161);
-            font-weight: 700;
-            font-family: 'Times New Roman', Times, serif;
-        }
-
-        #loginHead ul li a {
-            text-decoration: none;
-            color: rgb(5, 83, 161);
-            transition: background-color 0.3s ease-in;
-            border-radius: 10px;
-            padding: 3px 6px;
-        }
-
-        #loginHead ul li a:hover {
-            background-color: rgb(0, 83, 159);
-            color: white;
-        }
-
         /* ── CARD ── */
         .login-center {
             flex: 1;
