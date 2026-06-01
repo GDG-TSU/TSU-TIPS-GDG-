@@ -115,6 +115,10 @@
 
 <script>
 
+    const BASE_URL = "http://localhost:3000"; // swap this out after deploying backend
+
+    // Mobile nav bar logic --------------------------------------------------------------------------------------
+
     document.getElementById("hamburger").addEventListener("click", (e) => {
         e.stopPropagation();
         document.querySelectorAll("#navLinks li").forEach(li => {
@@ -162,7 +166,7 @@ async function handleLogin() {
     }
 
     try {
-        const res = await fetch("http://localhost:3000/auth/login", {
+        const res = await fetch(`${BASE_URL}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
@@ -213,7 +217,7 @@ async function handleRegister() {
 
     
     try {
-        const res = await fetch("http://localhost:3000/auth/register", {
+        const res = await fetch(`${BASE_URL}/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, email, password })
@@ -258,7 +262,7 @@ async function handleVerify() {
     }
 
     try {
-        const res = await fetch("http://localhost:3000/auth/verify", {
+        const res = await fetch(`${BASE_URL}/auth/verify`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, code })

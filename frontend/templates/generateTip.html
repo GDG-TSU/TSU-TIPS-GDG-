@@ -106,7 +106,7 @@
 
 
 <script>
-
+    const BASE_URL = "http://localhost:3000"; // swap this out after deploying backend
     const filter = document.getElementById("categoryFilter"); // only used for larger screens. on mobile u get input somewhere else
     let selectedCategory = "All";
     let isMobile = false;
@@ -185,7 +185,7 @@
                 const payload = JSON.parse(atob(token.split(".")[1]));
                 userId = payload.id;
             }
-            const res = await fetch(`http://localhost:3000/tips/count?user_id=${userId}`);
+            const res = await fetch(`${BASE_URL}/tips/count?user_id=${userId}`);
             const data = await res.json();
             
             tipCount.textContent = `${data.count} tip${data.count !== 1 ? "s" : ""}`;
@@ -229,7 +229,7 @@
         }
         
         
-        const response = await fetch(`http://localhost:3000/tips/random?category=${encodeURIComponent(selectedCategory)}`);
+        const response = await fetch(`${BASE_URL}/tips/random?category=${encodeURIComponent(selectedCategory)}`);
         const tip = await response.json();
 
         

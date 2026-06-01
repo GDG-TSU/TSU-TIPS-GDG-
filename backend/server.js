@@ -10,10 +10,18 @@ app.use(express.json());
 
 // MySQL connection
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",                             // move to .env later
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: "tips_tsu"
+    database: process.env.DB_NAME
+});
+connection.connect((err) => {
+    if(err) {
+        console.log("DB CONNECTION ERROR:", err);
+    } else {
+        console.log("Connected to Railway MySQL successfully");
+    }
 });
 
 // // email transporter — use a gmail account
@@ -30,11 +38,11 @@ const transporter = nodemailer.createTransport({
 app.get("/tips/random", (req, res) => {
     const { category } = req.query;
 
-    let sql = "SELECT * FROM Tips ORDER BY RAND() LIMIT 1";
+    let sql = "SELECT * FROM tips ORDER BY RAND() LIMIT 1";
     let params = [];
 
     if(category && category !== "All") {
-        sql = "SELECT * FROM Tips WHERE tip_category = ? ORDER BY RAND() LIMIT 1";
+        sql = "SELECT * FROM tips WHERE tip_category = ? ORDER BY RAND() LIMIT 1";
         params = [category];
     }
 
@@ -55,7 +63,7 @@ app.get("/tips/count", (req, res) => {
     }
 
     connection.query(
-        "SELECT COUNT(*) AS count FROM Tips WHERE user_id = ?",
+        "SELECT COUNT(*) AS count FROM tips WHERE user_id = ?",
         [user_id],
         (err, results) => {
             if(err) return res.status(500).send(err);
@@ -67,7 +75,7 @@ app.get("/tips/count", (req, res) => {
 
 // Endpoint to get all tips
 app.get("/tips", (req, res) => {
-    connection.query("SELECT * FROM Tips", (err, results) => {
+    connection.query("SELECT * FROM tips", (err, results) => {
         if (err) return res.status(500).send(err);
         res.json(results); // send JSON to frontend
     });
@@ -88,7 +96,7 @@ app.post("/tips", (req, res) => {
 
 
     const sql = `
-        INSERT INTO Tips
+        INSERT INTO tips
         (tip_owner, owner_classification, tip_category, tip_body, user_id)
         VALUES (?, ?, ?, ?, ?)
     `;

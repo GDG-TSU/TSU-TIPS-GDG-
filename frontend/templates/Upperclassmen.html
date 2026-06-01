@@ -81,6 +81,7 @@
 
 
 <script>
+    const BASE_URL = "http://localhost:3000"; // swap this out after deploying backend
 
     // mobile app hamburger button logic ------------------------------------------------------------------
     document.getElementById("hamburger").addEventListener("click", (e) => {
@@ -124,7 +125,7 @@
                 const payload = JSON.parse(atob(token.split(".")[1]));
                 userId = payload.id;
             }
-            const res = await fetch(`http://localhost:3000/tips/count?user_id=${userId}`);
+            const res = await fetch(`${BASE_URL}/tips/count?user_id=${userId}`);
             const data = await res.json();
             
             tipCount.textContent = `${data.count} tip${data.count !== 1 ? "s" : ""}`;
@@ -375,7 +376,7 @@ function advanceStage(){
         //  host it on free github or somethin
 
 
-        fetch("http://localhost:3000/tips", {
+        fetch(`${BASE_URL}/tips`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
